@@ -1,6 +1,6 @@
 // Creating an array with friends data //
 
-var friendsData = [
+let friendsData = [
 
     {
 
