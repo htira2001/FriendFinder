@@ -11,18 +11,21 @@
 
   <!-- Compiled and minified CSS -->
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
   <!-- Compiled and minified JavaScript -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
 
   <!-- Font Awesome Icons -->
 
@@ -304,126 +307,135 @@
       </select>
 
     </div>
+    <hr>
 
-    <!-- Modal Dialog Displaying Closest Friend Match -->
+    <button type="button" class="btn btn-info btn-lg btn-block" id="submitButton">Submit Responses <i
+        class="fa fa-angle-double-right"></i></button>
 
-    <div id="modal1" class="modal">
+    <br>
+  </div>
 
-      <div class="modal-content">
+  </div>
 
-        <p>Your closest match is: </p>
+  <!-- Modal Dialog Displaying Closest Friend Match -->
 
-        <div class="divider"></div>
+  <div id="modal1" class="modal">
 
-        <h4 id="userMatchName"></h4>
+    <div class="modal-content">
 
-        <img id="userMatchImage" class="materialboxed" width="650" src="">
+      <p>Your closest match is: </p>
 
-      </div>
+      <div class="divider"></div>
 
-      <div class="modal-footer">
+      <h4 id="userMatchName"></h4>
 
-        <a href="/survey" class="modal-action modal-close waves-effect waves-green btn-flat">Fill Again!</a>
-
-      </div>
+      <img id="userMatchImage" class="materialboxed" width="650" src="">
 
     </div>
 
-    <script type="text/javascript">
-      $(document).ready(function () {
+    <div class="modal-footer">
 
-        $("select").material_select();
+      <a href="/survey" class="modal-action modal-close waves-effect waves-green btn-flat">Fill Again!</a>
 
-        $('select').material_select('destroy');
+    </div>
 
-        $("select[required]").css({
+  </div>
 
-          display: "inline",
+  <script type="text/javascript">
+    $(document).ready(function () {
 
-          height: 0,
+      $("select").material_select();
 
-          padding: 0,
+      $('select').material_select('destroy');
 
-          width: 0
+      $("select[required]").css({
 
-        });
+        display: "inline",
 
-        $('.modal').modal({
+        height: 0,
 
-          dismissible: false, // Modal can be dismissed by clicking outside of the modal
+        padding: 0,
 
-          opacity: .5,
-
-          inDuration: 300,
-
-          outDuration: 200,
-
-          startingTop: '4%',
-
-          endingTop: '10%'
-
-        });
-
-        // Activate submit button
-
-        $("#submitButton").on("click", function (event) {
-
-          event.preventDefault();
-
-          // Gather user inputs
-
-          let userInput = {
-
-            name: $('#name').val().trim(),
-
-            photo: $('#photo').val().trim(),
-
-            scores: [
-
-              $('#question1').val().trim(),
-
-              $('#question2').val().trim(),
-
-              $('#question3').val().trim(),
-
-              $('#question4').val().trim(),
-
-              $('#question5').val().trim(),
-
-              $('#question6').val().trim(),
-
-              $('#question7').val().trim(),
-
-              $('#question8').val().trim(),
-
-              $('#question9').val().trim(),
-
-              $('#question10').val().trim()
-
-            ]
-
-          };
-
-          console.log("User Input: ", userInput);
-
-          // Add user inputs to friends list
-
-          $.post("/api/friends", userInput)
-
-            .done(function (data) {
-
-              $('#userMatchName').html(data.matchName);
-
-              $("#userMatchImage").attr("src", "./images/" + data.matchImage);
-
-              $('#modal1').modal('open');
-
-            });
-
-        });
+        width: 0
 
       });
-    </script>
+
+      $('.modal').modal({
+
+        dismissible: false, // Modal can be dismissed by clicking outside of the modal
+
+        opacity: .5,
+
+        inDuration: 300,
+
+        outDuration: 200,
+
+        startingTop: '4%',
+
+        endingTop: '10%'
+
+      });
+
+      // Activate submit button
+
+      $("#submitButton").on("click", function (event) {
+
+        event.preventDefault();
+
+        // Gather user inputs
+
+        let userInput = {
+
+          name: $('#name').val().trim(),
+
+          photo: $('#photo').val().trim(),
+
+          scores: [
+
+            $('#question1').val().trim(),
+
+            $('#question2').val().trim(),
+
+            $('#question3').val().trim(),
+
+            $('#question4').val().trim(),
+
+            $('#question5').val().trim(),
+
+            $('#question6').val().trim(),
+
+            $('#question7').val().trim(),
+
+            $('#question8').val().trim(),
+
+            $('#question9').val().trim(),
+
+            $('#question10').val().trim()
+
+          ]
+
+        };
+
+        console.log("User Input: ", userInput);
+
+        // Add user inputs to friends list
+
+        $.post("/api/friends", userInput)
+
+          .done(function (data) {
+
+            $('#userMatchName').html(data.matchName);
+
+            $("#userMatchImage").attr("src", "./images/" + data.matchImage);
+
+            $('#modal1').modal('open');
+
+          });
+
+      });
+
+    });
+  </script>
 
 </body>
 
